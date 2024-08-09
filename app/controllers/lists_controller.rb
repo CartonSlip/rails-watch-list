@@ -10,7 +10,7 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
-      redirect_to lists_path(@lists)
+      redirect_to @list, notice: "List was successfully created"
     else
       render :new, status: :unprocessable_entity
     end
@@ -22,12 +22,7 @@ class ListsController < ApplicationController
 
   private
 
-    def set_list
-      @list = List.find(params[:id])
-    end
-
     def list_params
-      params.require(:list).permit(:name)
+      params.require(:list).permit(:name, :poster)
     end
-
 end

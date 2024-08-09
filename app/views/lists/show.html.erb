@@ -2,6 +2,22 @@
   <h1>List Details</h1>
   <p><strong><%= @list.name %></strong></p>
   <hr>
+  <% if @list.poster.attached? %>
+    <div class="card-category"
+      style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path @list.poster.key, height: 300, crop: :fill %>')"
+    >
+      Cool article
+    </div>
+  <% end %>
+  <hr>
+  <% @list.bookmarks.each do |bookmark| %>
+    <div class="card">
+      <%= image_tag bookmark.movie.poster_url %>
+    </div>
+    <h2><%= bookmark.movie.title %></h2>
+    <p><%= bookmark.comment %></p>
+    <% end %>
+  <hr>
   <%= link_to "Comeback to the lists", lists_path %>
-  <%= link_to "Add Movies Bookmarks", new_bookmark_path %>
+  <%= link_to "Add Movies Bookmarks", new_list_bookmark_path(@list) %>
 </div>
